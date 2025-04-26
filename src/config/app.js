@@ -4,6 +4,7 @@ const ApiError = require('../common/exceptions/ApiError');
 const authMiddleware = require('../common/middlewares/auth.middleware');
 const userRoutes = require('../modules/user/user.routes');
 const grantRoutes = require('../modules/grant/grant.routes');
+const grantApplicationRoutes = require('../modules/grantApplication/grantApplication.routes');
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(authMiddleware);
 
 app.use('/api/user', userRoutes);
 app.use('/api/grants', grantRoutes);
+app.use('/api/grant-applications', grantApplicationRoutes);
 
 // Обробка помилок
 app.use((err, req, res, next) => {
