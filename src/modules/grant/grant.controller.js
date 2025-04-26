@@ -1,5 +1,6 @@
 const Grant = require('./grant.model');
 const ApiError = require('../../common/exceptions/ApiError');
+const { Op } = require('sequelize');
 
 // Створити грант
 const createGrant = async (req, res, next) => {
