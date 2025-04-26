@@ -1,15 +1,13 @@
 const { Sequelize } = require('sequelize');
-const { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS } = require('./env');
+const { DATABASE_URL } = require('./env');
 
-// Ініціалізація підключення до PostgreSQL через Sequelize
-const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
-    host: DB_HOST,
-    port: DB_PORT || 5432, // дефолтний порт для PostgreSQL
+// Ініціалізація підключення через URI
+const sequelize = new Sequelize(DATABASE_URL, {
     dialect: 'postgres',
-    logging: false, // вимикаємо SQL-логи в консолі (можна true якщо треба дебажити)
+    logging: false,
     define: {
-        freezeTableName: true, // таблиці будуть створюватися без автоматичного додавання "s" на кінці
-        timestamps: true,      // автоматично додає createdAt / updatedAt
+        freezeTableName: true,
+        timestamps: true,
     },
     pool: {
         max: 10,
@@ -17,6 +15,9 @@ const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASS, {
         acquire: 30000,
         idle: 10000,
     },
+    dialectOptions: {
+        ssl: process.env.NODE_ENV === 'production' ? { require: true, rejectUnauthorized: false } : false
+    }
 });
 
 module.exports = sequelize;
