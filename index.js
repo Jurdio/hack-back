@@ -7,7 +7,7 @@ const sequelize = require('./src/config/database');
         await sequelize.authenticate();
         console.log('Database connected');
 
-        await sequelize.sync();
+        await sequelize.sync({ alter: true });
 
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
