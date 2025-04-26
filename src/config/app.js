@@ -3,6 +3,7 @@ const authRoutes = require('../modules/auth/auth.routes');
 const ApiError = require('../common/exceptions/ApiError');
 const authMiddleware = require('../common/middlewares/auth.middleware');
 const userRoutes = require('../modules/user/user.routes');
+const grantRoutes = require('../modules/grant/grant.routes');
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use('/api/auth', authRoutes);
 app.use(authMiddleware);
 
 app.use('/api/user', userRoutes);
+app.use('/api/grants', grantRoutes);
 
 // Обробка помилок
 app.use((err, req, res, next) => {
