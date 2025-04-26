@@ -22,7 +22,7 @@ async function uploadFile(buffer, originalName, mimetype) {
         Key: fileName,
         Body: buffer,
         ContentType: mimetype,
-        // ACL: 'public-read', // щоб можна було дивитися файл напряму по URL
+        // ACL: 'public-read',
     };
 
     await s3Client.send(new PutObjectCommand(uploadParams));
