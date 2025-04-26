@@ -1,13 +1,21 @@
 const multer = require('multer');
 
-// Зберігання в пам'яті
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
+    const allowedMimeTypes = [
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'text/plain',
+        'image/jpeg',
+        'image/png',
+        'image/gif'
+    ];
+
+    if (allowedMimeTypes.includes(file.mimetype)) {
         cb(null, true);
     } else {
-        cb(new Error('Only images are allowed!'), false);
+        cb(new Error('Invalid file type! Allowed: PDF, DOCX, TXT, JPEG, PNG, GIF'), false);
     }
 };
 
