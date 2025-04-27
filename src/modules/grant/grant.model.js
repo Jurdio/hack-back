@@ -22,6 +22,10 @@ const Grant = sequelize.define('Grant', {
         type: DataTypes.STRING, // бо інколи бюджет пишуть словами "до 50 тис євро"
         allowNull: true,
     },
+    checked: {
+        type: DataTypes.JSON,
+        allowNull: true,
+    },
     realization_start: {
         type: DataTypes.DATE,
         allowNull: true, // може не бути точної дати
