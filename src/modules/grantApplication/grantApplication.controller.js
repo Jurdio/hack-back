@@ -1,6 +1,6 @@
 const { uploadFile } = require('../../common/services/s3.service');
 const { parseFile } = require('../../common/utils/fileParser');
-const { generateSummary } = require('../../common/utils/ai.service');
+const { generateSummary } = require('../../common/services/ai.service');
 const { buildSearchPrompt } = require('../../common/utils/promptBuilder');
 
 const handleGrantApplication = async (req, res, next) => {
@@ -13,18 +13,18 @@ const handleGrantApplication = async (req, res, next) => {
         }
 
         // Заливаємо файл в S3
-        const fileUrl = await uploadFile(file.buffer, file.originalname, file.mimetype);
+        // const fileUrl = await uploadFile(file.buffer, file.originalname, file.mimetype);
+        //
+        // // Парсимо текст з буфера
+        // const parsedText = await parseFile(file.buffer, file.mimetype);
+        //
+        // // Генеруємо саммарі
+        // const summary = await generateSummary(parsedText);
+        //
+        // // Складаємо фінальний промт
+        // const prompt = buildSearchPrompt(formFields, summary);
 
-        // Парсимо текст з буфера
-        const parsedText = await parseFile(file.buffer, file.mimetype);
-
-        // Генеруємо саммарі
-        const summary = await generateSummary(parsedText);
-
-        // Складаємо фінальний промт
-        const prompt = buildSearchPrompt(formFields, summary);
-
-        res.json({ summary, prompt, fileUrl });
+        next();
     } catch (error) {
         next(error);
     }
