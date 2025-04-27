@@ -14,6 +14,10 @@ const Grant = sequelize.define('Grant', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    location: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
     cluster_name: {
         type: DataTypes.STRING,
         allowNull: true, // не завжди буває кластер, може бути пусто
